@@ -1,6 +1,7 @@
 <template>
 	<span
-		:class="['user', nickColor, {active: active}]"
+		:class="['user', {active: active}]"
+		:style="nickColor"
 		:data-name="user.nick"
 		role="button"
 		v-on="onHover ? {mouseenter: hover} : {}"
@@ -33,7 +34,13 @@ export default {
 			return this.user.mode;
 		},
 		nickColor() {
-			return colorClass(this.user.nick);
+			const coloredNicks = parseInt(this.$store.state.settings.coloredNicks);
+
+			if (coloredNicks === 3) {
+				return;
+			}
+
+			return colorClass(this.user.nick, coloredNicks === 1);
 		},
 	},
 	methods: {

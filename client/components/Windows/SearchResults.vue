@@ -3,7 +3,7 @@
 		<div
 			id="chat"
 			:class="{
-				'colored-nicks': $store.state.settings.coloredNicks,
+				'colored-nicks': parseInt($store.state.settings.coloredNicks) !== 3,
 				'time-seconds': $store.state.settings.showSeconds,
 				'time-12h': $store.state.settings.use12hClock,
 			}"

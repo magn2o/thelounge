@@ -84,19 +84,32 @@
 		<div>
 			<label class="opt">
 				<input
-					:checked="$store.state.settings.coloredNicks"
-					type="checkbox"
-					name="coloredNicks"
-				/>
-				Enable colored nicknames
-			</label>
-			<label class="opt">
-				<input
 					:checked="$store.state.settings.autocomplete"
 					type="checkbox"
 					name="autocomplete"
 				/>
 				Enable autocomplete
+			</label>
+		</div>
+		<div>
+			<label class="opt">
+				<label for="coloredNicks-select" class="opt">Enable colored nicknames</label>
+				<select
+					id="coloredNicks-select"
+					:value="$store.state.settings.coloredNicks"
+					name="coloredNicks"
+					class="input"
+				>
+					<option value="1">
+						Yes (Light Background)
+					</option>
+					<option value="2">
+						Yes (Dark Background)
+					</option>
+					<option value="3">
+						No
+					</option>
+				</select>
 			</label>
 		</div>
 		<div>
