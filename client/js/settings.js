@@ -112,6 +112,9 @@ export const config = normalizeConfig({
 	searchEnabled: {
 		default: false,
 	},
+	autoRejoin: {
+		default: false,
+	},
 });
 
 export function createState() {

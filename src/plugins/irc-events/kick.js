@@ -32,6 +32,10 @@ module.exports = function (irc, network) {
 				chan: chan.id,
 				state: chan.state,
 			});
+
+			if(client.config.clientSettings.autoRejoin) {
+				irc.join(chan.name);
+			}
 		} else {
 			chan.removeUser(msg.target);
 		}

@@ -86,6 +86,17 @@
 				/>
 			</label>
 		</div>
+		<div v-if="!$store.state.serverConfiguration.public">
+			<h2>Options</h2>
+			<label class="opt">
+				<input
+					:checked="$store.state.settings.autoRejoin"
+					type="checkbox"
+					name="autoRejoin"
+				/>
+				Automatically re-join channels when kicked
+			</label>
+		</div>
 	</div>
 </template>
 
