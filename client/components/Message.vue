@@ -12,6 +12,7 @@
 		:data-type="message.type"
 		:data-command="message.command"
 		:data-from="message.from && message.from.nick"
+		:data-to="message.to && message.to.nick"
 	>
 		<span
 			aria-hidden="true"
@@ -48,7 +49,19 @@
 			</span>
 		</template>
 		<template v-else>
-			<span v-if="message.type === 'message'" class="from">
+			<span v-if="message.type === 'query' && channel.type === 'channel'" class="from">
+					<template v-if="!message.self">
+							<span>&#40;msg:</span>
+							<Username :user="message.from" :network="network" :channel="channel" />
+							<span>&#41;</span>
+					</template>
+					<template v-else>
+							<span>&#40;</span>
+							<Username :user="message.to" :network="network" :channel="channel" />
+							<span>&#41;</span>
+					</template>
+			</span>
+			<span v-else-if="message.type === 'message' || (message.type === 'query' && channel.type !== 'channel')" class="from">
 				<template v-if="message.from && message.from.nick">
 					<span class="only-copy" aria-hidden="true">&lt;</span>
 					<Username :user="message.from" :network="network" :channel="channel" />

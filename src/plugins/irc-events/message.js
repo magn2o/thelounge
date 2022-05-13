@@ -100,6 +100,7 @@ module.exports = function (irc, network) {
 			// Query messages (unless self or muted) always highlight
 			if (chan.type === Chan.Type.QUERY) {
 				highlight = !self;
+				data.type = Msg.Type.QUERY;
 			} else if (chan.type === Chan.Type.CHANNEL) {
 				from.lastMessage = data.time || Date.now();
 			}
@@ -110,6 +111,7 @@ module.exports = function (irc, network) {
 			type: data.type,
 			time: data.time,
 			text: data.message,
+			to: {nick: data.target},
 			self: self,
 			from: from,
 			highlight: highlight,

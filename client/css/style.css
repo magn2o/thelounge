@@ -2920,6 +2920,7 @@ part/quit messages where we don't load previews (adds a blank line otherwise) */
 #chat .msg[data-type="message"] .content,
 #chat .msg[data-type="monospace_block"] .content,
 #chat .msg[data-type="notice"] .content,
+#chat .msg[data-type="query"] .content,
 #chat .ctcp-message,
 #chat .part-reason,
 #chat .quit-reason,

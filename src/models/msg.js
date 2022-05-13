@@ -77,6 +77,7 @@ Msg.Type = {
 	NICK: "nick",
 	NOTICE: "notice",
 	PART: "part",
+	QUERY: "query",
 	QUIT: "quit",
 	CTCP: "ctcp",
 	CTCP_REQUEST: "ctcp_request",

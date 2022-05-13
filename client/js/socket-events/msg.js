@@ -23,19 +23,20 @@ socket.on("msg", function (data) {
 		return;
 	}
 
+	let activeChannel = store.state.activeChannel;
 	let channel = receivingChannel.channel;
 	let isActiveChannel =
-		store.state.activeChannel && store.state.activeChannel.channel === channel;
+		activeChannel && activeChannel.channel === channel;
 
 	// Display received notices and errors in currently active channel.
 	// Reloading the page will put them back into the lobby window.
 	if (data.msg.showInActive) {
 		// We only want to put errors/notices in active channel if they arrive on the same network
 		if (
-			store.state.activeChannel &&
-			store.state.activeChannel.network === receivingChannel.network
+			activeChannel &&
+			activeChannel.network === receivingChannel.network
 		) {
-			channel = store.state.activeChannel.channel;
+			channel = activeChannel.channel;
 
 			// Do not update unread/highlight counters for this channel
 			// as we are putting this message in the active channel
@@ -67,10 +68,15 @@ socket.on("msg", function (data) {
 
 	channel.messages.push(data.msg);
 
+	// Display received message in the active channel as well. @MGNS
+	if (data.msg.type === "query" && !isActiveChannel && activeChannel.channel.type === 'channel') {
+		activeChannel.channel.messages.push(data.msg);
+	}
+
 	if (data.msg.self) {
 		channel.firstUnread = data.msg.id;
 	} else {
-		notifyMessage(data.chan, channel, store.state.activeChannel, data.msg);
+		notifyMessage(data.chan, channel, activeChannel, data.msg);
 	}
 
 	let messageLimit = 0;
