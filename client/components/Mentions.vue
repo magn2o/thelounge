@@ -22,6 +22,9 @@
 			</template>
 			<template v-for="message in resolvedMessages" v-else>
 				<div :key="message.msgId" :class="['msg', message.type]">
+					<div class="msg-jump" role="button" @click="jumpToMsg(message)">
+						<span class="jump">Jump</span>
+					</div>
 					<div class="mentions-info">
 						<div>
 							<span class="from">
@@ -49,7 +52,7 @@
 							</span>
 						</div>
 					</div>
-					<div class="content" dir="auto">
+					<div class="content" dir="auto" @click="jumpToMsg(message)">
 						<ParsedMessage :network="null" :message="message" />
 					</div>
 				</div>
@@ -90,6 +93,7 @@
 .mentions-popup .msg {
 	margin-bottom: 15px;
 	user-select: text;
+	position: relative;
 }
 
 .mentions-popup .msg:last-child {
@@ -121,6 +125,31 @@
 .mentions-popup .dismiss-all-mentions {
 	margin: 0;
 	padding: 4px 6px;
+}
+
+.mentions-popup .msg-jump {
+	-webkit-box-align: center;
+	align-items: center;
+	background-color: var(--body-bg-color);
+	border-radius: 3px;
+	box-sizing: border-box;
+	cursor: pointer;
+	height: 24px;
+	padding: 3px;
+	position: absolute;
+	text-align: center;
+	z-index: 1;
+	right: 16px;
+	opacity: 0;
+	color: var(--body-color-muted);
+}
+
+.mentions-popup .msg:hover .msg-jump {
+	opacity: 1;
+}
+
+.mentions-popup .msg-jump:hover {
+	color: var(--body-color);
 }
 
 @media (min-height: 500px) {
@@ -223,6 +252,13 @@ export default {
 		},
 		closePopup() {
 			this.isOpen = false;
+		},
+		jumpToMsg(message) {
+			const el = document.getElementById("msg-" + message.msgId);
+
+			if (el) {
+				el.scrollIntoView({block: "center", inline: "nearest"});
+			}
 		},
 	},
 };
